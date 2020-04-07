@@ -1,0 +1,19 @@
+version: "3.1"
+
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
+
+  actionhero:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+    environment:
+      TCP_PORTS: 8080
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
